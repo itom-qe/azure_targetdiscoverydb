@@ -9,7 +9,7 @@ provider "azurerm" {
 
 resource "azurerm_mssql_server" "example" {
   name                         = "${var.prefix}-sqlsvr${random_id.id.hex}"
-  resource_group_name          = "${var.azure_rgname}"
+  resource_group_name          = var.azure_rgname
   location                     = "${var.location}"
   version                      = "12.0"
   administrator_login          = "4dm1n157r470r"
@@ -19,8 +19,8 @@ resource "azurerm_mssql_server" "example" {
 
 resource "azurerm_mssql_database" "example" {
   name                             = "${var.prefix}-db"
-  resource_group_name              = "${var.azure_rgname}"
-  location                         = "${var.location}"
+  resource_group_name              = var.azure_rgname
+  location                         = var.location
   #server_name                      = "${azurerm_mssql_server.example.name}"
   server_id                         = "${azurerm_mssql_server.example.id}"
   edition                          = "Basic"
@@ -33,7 +33,7 @@ resource "azurerm_mssql_database" "example" {
 # https://docs.microsoft.com/en-us/rest/api/sql/firewallrules/createorupdate
 resource "azurerm_mssql_firewall_rule" "example" {
   name                = "allow-azure-services"
-  resource_group_name = "${var.azure_rgname}"
+  resource_group_name = var.azure_rgname
   #server_name         = "${azurerm_mssql_server.example.name}"
   server_id           = "${azurerm_mssql_server.example.id}"
   start_ip_address    = "0.0.0.0"
