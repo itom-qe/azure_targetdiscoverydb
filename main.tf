@@ -37,6 +37,10 @@ resource "azurerm_mssql_firewall_rule" "example" {
   end_ip_address      = "0.0.0.0"
 }
 
+resource "azurerm_mysql_server_key" "example" {
+  server_id        = "${azurerm_mysql_server.example.id}"
+}
+
 resource "random_id" "id" {
   byte_length = 2
 }
