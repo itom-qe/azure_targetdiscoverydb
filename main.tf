@@ -14,13 +14,26 @@ resource "azurerm_mssql_server" "example" {
   version                      = "12.0"
   administrator_login          = "4dm1n157r470r"
   administrator_login_password = "4-v3ry-53cr37-p455w0rd!"
+  
+  sku_name   = "B_Gen5_2"
+  storage_mb = 5120
+
+  auto_grow_enabled                 = true
+  backup_retention_days             = 7
+  geo_redundant_backup_enabled      = false
+  infrastructure_encryption_enabled = false
+  public_network_access_enabled     = true
+  ssl_enforcement_enabled           = true
+  ssl_minimal_tls_version_enforced  = "TLS1_2"
+
 }
 
 resource "azurerm_mssql_database" "example" {
   name                             = "${var.prefix}-db"
   resource_group_name              = "${var.azure_rgname}"
   location                         = "${var.location}"
-  server_name                      = "${azurerm_mssql_server.example.name}"
+  #server_name                      = "${azurerm_mssql_server.example.name}"
+  server_id                         = "${azurerm_mssql_server.example.id}"
   edition                          = "Basic"
   collation                        = "SQL_Latin1_General_CP1_CI_AS"
   create_mode                      = "Default"
@@ -32,7 +45,8 @@ resource "azurerm_mssql_database" "example" {
 resource "azurerm_mssql_firewall_rule" "example" {
   name                = "allow-azure-services"
   resource_group_name = "${var.azure_rgname}"
-  server_name         = "${azurerm_mssql_server.example.name}"
+  #server_name         = "${azurerm_mssql_server.example.name}"
+  server_id           = "${azurerm_mssql_server.example.id}"
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
