@@ -7,7 +7,7 @@ provider "azurerm" {
 }
 
 
-resource "azurerm_sql_server" "example" {
+resource "azurerm_mssql_server" "example" {
   name                         = "${var.prefix}-sqlsvr${random_id.id.hex}"
   resource_group_name          = "${var.azure_rgname}"
   location                     = "${var.location}"
@@ -16,7 +16,7 @@ resource "azurerm_sql_server" "example" {
   administrator_login_password = "4-v3ry-53cr37-p455w0rd!"
 }
 
-resource "azurerm_sql_database" "example" {
+resource "azurerm_mssql_database" "example" {
   name                             = "${var.prefix}-db"
   resource_group_name              = "${var.azure_rgname}"
   location                         = "${var.location}"
@@ -29,7 +29,7 @@ resource "azurerm_sql_database" "example" {
 
 # Enables the "Allow Access to Azure services" box as described in the API docs
 # https://docs.microsoft.com/en-us/rest/api/sql/firewallrules/createorupdate
-resource "azurerm_sql_firewall_rule" "example" {
+resource "azurerm_mssql_firewall_rule" "example" {
   name                = "allow-azure-services"
   resource_group_name = "${var.azure_rgname}"
   server_name         = "${azurerm_sql_server.example.name}"
