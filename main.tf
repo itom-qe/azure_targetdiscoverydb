@@ -8,7 +8,7 @@ provider "azurerm" {
 
 
 resource "azurerm_sql_server" "example" {
-  name                         = "${var.prefix}-sqlsvr-${random_string.uniq_str.result}"
+  name                         = "${var.prefix}-sqlsvr${random_id.id.hex}"
   resource_group_name          = "${var.azure_rgname}"
   location                     = "${var.location}"
   version                      = "12.0"
@@ -37,7 +37,6 @@ resource "azurerm_sql_firewall_rule" "example" {
   end_ip_address      = "0.0.0.0"
 }
 
-resource "random_string" "uniq_str" {
-  length  = 2
-  special = false
+resource "random_id" "id" {
+  byte_length = 2
 }
