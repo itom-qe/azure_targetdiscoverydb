@@ -20,7 +20,7 @@ resource "azurerm_mssql_database" "example" {
   name                             = "${var.prefix}-db"
   resource_group_name              = "${var.azure_rgname}"
   location                         = "${var.location}"
-  server_name                      = "${azurerm_sql_server.example.name}"
+  server_name                      = "${azurerm_mssql_server.example.name}"
   edition                          = "Basic"
   collation                        = "SQL_Latin1_General_CP1_CI_AS"
   create_mode                      = "Default"
@@ -32,7 +32,7 @@ resource "azurerm_mssql_database" "example" {
 resource "azurerm_mssql_firewall_rule" "example" {
   name                = "allow-azure-services"
   resource_group_name = "${var.azure_rgname}"
-  server_name         = "${azurerm_sql_server.example.name}"
+  server_name         = "${azurerm_mssql_server.example.name}"
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
