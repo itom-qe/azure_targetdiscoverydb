@@ -38,6 +38,6 @@ resource "azurerm_sql_firewall_rule" "example" {
 }
 
 resource "random_string" "uniq_str" {
-  length  = 4
+  length  = 2
   special = false
 }
