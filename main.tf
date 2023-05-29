@@ -30,7 +30,7 @@ resource "azurerm_mssql_database" "example" {
   #edition                          = "Basic"
   collation                        = "SQL_Latin1_General_CP1_CI_AS"
   create_mode                      = "Default"
-  requested_service_objective_name = "Basic"
+  #requested_service_objective_name = "Basic"
   license_type   = "LicenseIncluded"
   max_size_gb    = 4
   read_scale     = true
