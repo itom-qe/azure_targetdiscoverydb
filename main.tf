@@ -4,10 +4,11 @@ provider "azurerm" {
   client_secret   = var.azure_client_secret
   tenant_id       = var.azure_tenant_id
   features {}
+  version = ">=2.0.0"
 }
 
 
-resource "azurerm_sql_server" "example" {
+resource "azurerm_mssql_elasticpool" "example" {
   name                         = "${var.prefix}-sqlsvr-${random_string.uniq_str.result}"
   resource_group_name          = "${var.azure_rgname}"
   location                     = "${var.location}"
