@@ -14,6 +14,7 @@ resource "azurerm_mssql_server" "example" {
   version                      = "12.0"
   administrator_login          = "4dm1n157r470r"
   administrator_login_password = "4-v3ry-53cr37-p455w0rd!"
+  server_id        = "${azurerm_mysql_server.example.id}"
 }
 
 resource "azurerm_mssql_database" "example" {
@@ -37,9 +38,7 @@ resource "azurerm_mssql_firewall_rule" "example" {
   end_ip_address      = "0.0.0.0"
 }
 
-resource "azurerm_mysql_server_key" "example" {
-  server_id        = "${azurerm_mysql_server.example.id}"
-}
+
 
 resource "random_id" "id" {
   byte_length = 2
