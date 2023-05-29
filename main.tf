@@ -8,7 +8,7 @@ provider "azurerm" {
 }
 
 
-resource "azurerm_mssql_elasticpool" "example" {
+resource "azurerm_sql_server" "example" {
   name                         = "${var.prefix}-sqlsvr-${random_string.uniq_str.result}"
   resource_group_name          = "${var.azure_rgname}"
   location                     = "${var.location}"
